@@ -3,17 +3,22 @@
 
   <head>
     <meta charset="utf-8">
+
     <title>Algorithme de César</title>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Diane">
+
+    <link rel="stylesheet" href="/style/index.css">
+
   </head>
 
   <body>
     <h1>Algorithme de César</h1>
 
     <form id="form-caesar" method="POST">
-      <!-- inputs -->
+      <!-- message to code -->
       <label>Votre texte</label>
       <input name="ipt-txt" id="ipt-txt" type="text" required></input>
 
@@ -24,12 +29,12 @@
       <button id="submit" type="submit">Coder</button>
     </form>
 
+    <!-- coded message (response) -->
     <p id="coded-message">Votre message avec un décalage de <span id="offset"></span> est <span id="code"></span>
     </p>
 
     <script>
       let cesarCode = document.getElementById("coded-message");
-      cesarCode.style.visibility = "hidden";
       
       document.getElementById('form-caesar').addEventListener('submit', function(event) {
         event.preventDefault();
