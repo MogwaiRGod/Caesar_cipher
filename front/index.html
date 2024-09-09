@@ -15,23 +15,31 @@
   </head>
 
   <body>
-    <h1>Algorithme de César</h1>
+    <div id="container">
+      <h1 id="title">Algorithme de César</h1>
 
-    <form id="form-caesar" method="POST">
-      <!-- message to code -->
-      <label>Votre texte</label>
-      <input name="ipt-txt" id="ipt-txt" type="text" required></input>
+      <form id="form-caesar" method="POST">
+        <!-- message to code -->
+        <div>
+          <label>Votre texte</label>
+          <input name="ipt-txt" id="ipt-txt" type="text" required></input>
+        </div>
 
-      <!-- optional -->
-      <label>Le décalage</label>
-      <input name="ipt-offset" id="ipt-offset" type="number" min="0"></input>
+        <!-- optional -->
+        <div>
+          <label>Le décalage</label>
+          <input name="ipt-offset" id="ipt-offset" type="number" min="0"></input>
+        </div>
+        
+        <button id="submit" type="submit">Coder</button>
+      </form>
 
-      <button id="submit" type="submit">Coder</button>
-    </form>
+      <!-- coded message (response) -->
+      <p id="coded-message">Votre message avec un décalage de <span id="offset"></span> est <span id="code"></span>
+      </p>
 
-    <!-- coded message (response) -->
-    <p id="coded-message">Votre message avec un décalage de <span id="offset"></span> est <span id="code"></span>
-    </p>
+      <div class="tenor-gif-embed" data-postid="21270382" data-share-method="host" data-aspect-ratio="1.77778" data-width="100%"><a href="https://tenor.com/view/running-horse-ultimate-cowboy-showdown-fast-colt-horse-running-around-gif-21270382">Running Horse Ultimate Cowboy Showdown GIF</a>from <a href="https://tenor.com/search/running+horse-gifs">Running Horse GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
 
     <script>
       let cesarCode = document.getElementById("coded-message");
