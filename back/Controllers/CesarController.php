@@ -7,12 +7,17 @@ use core\AbstractController;
 /**
  * Documentation
  * 
- * @method public static null index()
+ * @method public static null|Exception encode(): Encrypts the user input and send the corresponding json
  * @method private static string|Exception manageForm(): Manages the data from the form and encodes the text
  */
 class CesarController extends AbstractController {
 
-    public function encode()
+    /**
+     * Encrypts the user POST input and send the corresponding json
+     * 
+     * @return null|Exception
+     */
+    public function encode(): null|Exception
     {        
         try {
             $cesarUser = $this->manageForm();
@@ -24,8 +29,7 @@ class CesarController extends AbstractController {
 
             header('Content-Type: application/json');
             echo json_encode($codedMessage);
-            return;
-            
+
         } catch (Exception $e) {
             return $e;
         } // try catch
@@ -33,8 +37,14 @@ class CesarController extends AbstractController {
         // empties the $_POST array
         $_POST = array();
         
+        return null;
     } // index
 
+    /**
+     * Retrieves the POST data and encrypts the input text with the optional input offset
+     * 
+     * @return Cesar|Exception Returns the final Cesar object
+     */
     private function manageForm(): Cesar|Exception
     {
         try {

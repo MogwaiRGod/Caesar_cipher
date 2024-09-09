@@ -2,16 +2,30 @@
 
 namespace core;
 
+/**
+ * Documentation
+ *
+ * @method public null|Exception  render(string $fileName): Loads the html file whose name is passt as argument
+ */
 abstract class AbstractController {
-    protected $content = [];
 
-    public function set($data) : void {
-        $this->content = array_merge($this->content, $data);
-    }
+    /**
+     * Loads the html file whose name is passt as argument
+     * 
+     * @param string $fileName
+     * @return null|Exception 
+     */
+    public function render(string $fileName) : null|Exception 
+    {
+        try {
+            // imports the corresponding file
+            require(ROOT . 'front/' . $fileName . '.html');
 
-    public function render($fileName) : void {
-        extract($this->content);
+            return null;
+        } catch (Exception $e) {
+            return $e;
 
-        require(ROOT . 'front/' . $fileName . '.html');
-    }
-}
+        } // try/catch
+    } // render
+    
+} // AbstractController

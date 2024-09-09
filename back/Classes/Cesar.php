@@ -47,16 +47,17 @@ class Cesar {
     /**
      * Method that changes the offset to its modulo result if > 26
      * 
-     *  @return null|Exception
+     * @return bool|Exception Returns true if the offset is correct, false if an operation had to be made
      */
-    private function checkOffset(): null|Exception
+    private function checkOffset(): bool|Exception
     {
         try {
             if ($this->offset > 26) {
                 $this->offset %= 26;
+                return false;
             }
 
-            return null;
+            return true;
 
         } catch (Exception $e) {
             return $e; 
@@ -66,6 +67,7 @@ class Cesar {
     /**
      * Method that turns the argument string into an array of all its ASCII encodings.
      * 
+     * @param string $orStr text to convert
      * @return array|Exception array of ASCII encodings of each character of the input string or Exception if an error occured
      */
     public static function toAscii(string $orStr): array|Exception
@@ -87,6 +89,7 @@ class Cesar {
     /**
      * Method that turns the argument array containing ASCII codes into the corresponding string.
      * 
+     * @param array $orArr array of ASCII codepoints to convert
      * @return string|Exception string of each ASCII codes of the input array or Exception if an error occured
      */
     public static function asciiToString(array $orArr): string|Exception
@@ -106,6 +109,8 @@ class Cesar {
     /**
      * Method that turns the argument array that contains ASCII codes to the corresponding string with the offset argument offset. 
      * 
+     * @param array $asciiArr array of ASCII codepoints to convert
+     * @param int $offset offset to set to the characters
      * @return string|Exception string with ASCII offset
      */
     private function encodeOffset(array $asciiArr, int $offset): string|Exception
@@ -144,6 +149,7 @@ class Cesar {
     /**
      * Encodes using Cesar algorithm with optionally set offset the object string.
      * 
+     * @param ?int $offset offset to set to the characters
      * @return string|Exception string of Cesar coded with the optional offset | Exception if an error occured
      */
     public function code(?int $offset = null): string|Exception
