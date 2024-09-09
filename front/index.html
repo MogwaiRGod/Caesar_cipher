@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+  <html lang="fr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Algorithme de César</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Diane">
+  </head>
+
+  <body>
+    <h1>Algorithme de César</h1>
+
+    <form id="form-caesar" method="POST">
+      <!-- inputs -->
+      <label>Votre texte</label>
+      <input name="ipt-txt" id="ipt-txt" type="text" required></input>
+
+      <!-- optional -->
+      <label>Le décalage</label>
+      <input name="ipt-offset" id="ipt-offset" type="number" min="0"></input>
+
+      <button id="submit" type="submit">Coder</button>
+    </form>
+
+    <p id="coded-message">Votre message avec un décalage de <span id="offset"></span> est <span id="code"></span>
+    </p>
+
+    <script>
+      let cesarCode = document.getElementById("coded-message");
+      cesarCode.style.visibility = "hidden";
+      
+      document.getElementById('form-caesar').addEventListener('submit', function(event) {
+        event.preventDefault();
+      
+        // auto pair key/value with the form data. "this" refers to form-caesar
+        const formData = new FormData(this);
+
+        // fetch request to the corresponding route
+        fetch('CesarController/encode', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Un problème est survenu côté serveur');
+            }
+
+            // json() returns a promise which resolves with the result of parsing the body text as JSON.
+            return response.json();
+          })
+          .then(data => {
+            // data is then in JSON format
+            const userCesarData = data;
+
+            // shows the paragraph to the attention of the user
+            cesarCode.style.visibility = "visible";
+
+            // prints the coded data on the HTML page
+            document.getElementById('offset').textContent = userCesarData['offset'];
+            document.getElementById('code').textContent = userCesarData['code'];
+          })
+          .catch(error => 
+            console.error('Error:', error)
+          ); // fetch
+      }); // addEventListener
+    </script>
+  </body>
+</html>
